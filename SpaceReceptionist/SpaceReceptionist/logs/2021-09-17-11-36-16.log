@@ -1,0 +1,24 @@
+11:36:16 [Skill] INFO  Skill:139 - Connecting to Furhat server on 192.168.0.131:1932
+11:36:16 [SpacereceptionistSkill] INFO  SpacereceptionistSkill:166 - Starting skill
+11:36:22 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:36:22 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:36:53 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:36:53 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:37:01 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:37:01 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:37:09 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:37:09 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:37:18 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:37:18 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:37:31 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:37:31 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:42:36 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+11:42:36 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:42:36 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+11:42:36 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:42:36 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+11:42:36 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:43:31 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:43:31 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+11:43:52 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+11:43:52 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons

@@ -1,0 +1,11 @@
+10:55:50 [Skill] INFO  Skill:139 - Connecting to Furhat server on 192.168.0.131:1932
+10:55:50 [SpacereceptionistSkill] INFO  SpacereceptionistSkill:166 - Starting skill
+10:56:13 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+10:56:13 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+10:57:11 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+10:57:11 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+10:57:18 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+10:57:18 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+10:57:30 [Broker Client] WARN  Event:192 - Could not set field yielding with type class java.lang.Boolean on builder class furhatos.event.actions.ActionSpeech$Builder : null
+10:57:30 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+10:59:09 [EventSystem] INFO  SpacereceptionistSkill:184 - Terminating skill

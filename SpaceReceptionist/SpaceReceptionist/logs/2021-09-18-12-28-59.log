@@ -1,0 +1,8 @@
+12:28:59 [Skill] INFO  Skill:139 - Connecting to Furhat server on 192.168.0.131:1932
+12:29:01 [Skill] WARN  BrokerClient: 82 - Connection refused: connect (is the server running and reachable?)
+12:29:03 [Skill] WARN  BrokerClient: 82 - Connection refused: connect (is the server running and reachable?)
+12:29:05 [Skill] WARN  BrokerClient: 82 - Connection refused: connect (is the server running and reachable?)
+12:29:07 [Skill] WARN  BrokerClient: 82 - Connection refused: connect (is the server running and reachable?)
+12:29:10 [Skill] WARN  BrokerClient: 82 - Connection refused: connect (is the server running and reachable?)
+12:29:12 [Skill] WARN  BrokerClient: 82 - Connection refused: connect (is the server running and reachable?)
+12:29:14 [Skill] WARN  BrokerClient: 82 - Connection refused: connect (is the server running and reachable?)

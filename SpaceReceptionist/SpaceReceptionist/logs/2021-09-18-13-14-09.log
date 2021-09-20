@@ -1,0 +1,4 @@
+13:14:09 [Skill] INFO  Skill:139 - Connecting to Furhat server on 192.168.0.131:1932
+13:14:10 [SpacereceptionistSkill] INFO  SpacereceptionistSkill:166 - Starting skill
+13:14:42 [pool-2-thread-1] ERROR IdfMultiIntentClassifier:249 - Could not find class for entity @count in PassengerCount
+13:14:42 [pool-2-thread-1] ERROR IdfMultiIntentClassifier:249 - Could not find class for entity @count in PassengerCount
