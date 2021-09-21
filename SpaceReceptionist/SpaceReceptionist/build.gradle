@@ -42,8 +42,9 @@ repositories {
     maven { url 'https://repo.gradle.org/gradle/libs-releases' }
 }
 
+
 dependencies {
-    compile 'com.furhatrobotics.furhatos:furhat-commons:1.21.0'
+    compile 'com.furhatrobotics.furhatos:furhat-commons:2.0.0'
 }
 
 jar {
