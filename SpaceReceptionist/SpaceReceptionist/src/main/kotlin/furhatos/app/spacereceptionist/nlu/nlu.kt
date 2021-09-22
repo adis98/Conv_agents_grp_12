@@ -58,3 +58,20 @@ class RoomClass(val typ : RoomTypes? = null):ComplexEnumEntity(){
     }
 }
 
+class Wish(val wish : String? = null) : ComplexEnumEntity(){
+    override fun getEnum(lang: Language): List<String> {
+        return listOf("Yes, @wish","@wish")
+    }
+}
+
+class ActivityQuery : Intent(){
+    override fun getExamples(lang: Language): List<String> {
+        return listOf("What activities do you offer?","What are the activities?","Could you tell me what activities you have?")
+    }
+}
+
+class SigninQuery : Intent(){
+    override fun getExamples(lang: Language): List<String> {
+        return listOf("What activities have I signed up for?","What have I signed up for?","What have I registered for?","What activities have I registered for?","Which activities have I registered for?")
+    }
+}

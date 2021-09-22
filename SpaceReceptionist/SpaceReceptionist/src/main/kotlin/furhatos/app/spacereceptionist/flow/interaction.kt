@@ -14,6 +14,9 @@ var roomType : RoomClass? = null
 var corrected_class: String? = null
 var suiteRoomCount = 10
 var citizenRoomCount = 20
+var wishes : MutableList<String>? = mutableListOf()
+var activities  = arrayOf<String>("skiing","tennis","badminton","zombie")
+var registrations : MutableList<String>? = mutableListOf()
 
 
 val Start: State = state(Interaction) {
@@ -264,7 +267,11 @@ val SpecificWishes: State = state(Interaction){
     onEntry {
         furhat.ask("Amazing. The data has been entered to your name. Now before I mention the activities on-board, do you have any wishes during your stay?")
     }
-    onResponse<Yes>{
+    onResponse<Wish>{
+        var temp = it.intent.wish
+        if (temp != null) {
+            wishes!!.add(temp)
+        }
         goto(WishesLoop)
     }
     onResponse<No>{
@@ -280,14 +287,89 @@ val Check_in_cancel: State = state(Interaction){
 
 val WishesLoop: State = state(Interaction){
     onEntry{
-        furhat.say("TO DO: Wishlist loop")
+        furhat.ask("What other wishes?")
+    }
+    onResponse<No>{
+        goto(EndOfWishes)
+    }
+    onResponse {
+        var test = it.findFirst(Wish())
+        var temp = test.wish
+        if (temp != null) {
+            wishes?.add(temp)
+        }
+        reentry()
     }
 
 }
 
+
+
+
 val NoWishes: State = state(Interaction){
     onEntry {
-        furhat.say("TO DO: No wishes")
+        furhat.say("All right then, lets move on")
+        goto(StarshipActivities)
     }
 
+}
+
+val EndOfWishes: State = state(Interaction){
+    onEntry {
+        furhat.say("All your demands have been noted and will be read by the crew. Let's move on then")
+        goto(StarshipActivities)
+    }
+}
+
+val StarshipActivities: State = state(Interaction){
+    onEntry{
+        furhat.ask("On Enterprise, we offer Skiing, Tennis, Badminton, and Zombie Survival. Which ones would you like to sign up for today?")
+    }
+    onReentry {
+        furhat.ask("What other activies do you want to sign up for?")
+    }
+
+    onResponse<No>{
+        goto(EndState)
+    }
+    onResponse<ActivityQuery>{
+        furhat.say("We offer skiing, tennis, badminton, and Zombie Survival")
+        reentry()
+    }
+    onResponse<SigninQuery>{
+        if(registrations == null){
+            furhat.say("You haven't signed up for anything")
+        }
+        else{
+            var answer = ""
+            for (temp in registrations!!){
+                answer = answer + ", " + temp
+            }
+            furhat.say("You've registered for"+answer)
+        }
+        reentry()
+    }
+
+    onResponse {
+        var txt = it.text
+        var lst = txt.split(" ")
+        for (word in lst){
+            if (word in activities){
+                if(word == "zombie"){
+                    registrations!!.add("zombie survival")
+                }
+                else{
+                    registrations!!.add(word)
+                }
+
+            }
+        }
+        reentry()
+    }
+}
+
+val EndState: State = state(Interaction){
+    onEntry {
+        furhat.say("Understood. You have now successfully checked in. You will soon be teleported to your room, and your luggage will be delivered to your room. We hope you have a pleasant stay here")
+    }
 }
