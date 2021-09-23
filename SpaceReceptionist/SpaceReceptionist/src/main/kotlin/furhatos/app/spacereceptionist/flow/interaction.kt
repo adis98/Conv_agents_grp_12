@@ -287,7 +287,13 @@ val Check_in_cancel: State = state(Interaction){
 
 val WishesLoop: State = state(Interaction){
     onEntry{
-        furhat.ask("What other wishes?")
+//        furhat.ask("What other wishes?")
+        random(
+                {furhat.ask("What other wishes?")},
+                {furhat.ask("Any other wishes?")},
+                {furhat.ask("What else would you like?")},
+                {furhat.ask("Anything else?")}
+        )
     }
     onResponse<No>{
         goto(EndOfWishes)
