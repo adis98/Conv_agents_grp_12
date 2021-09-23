@@ -19,9 +19,12 @@ var activities  = arrayOf<String>("skiing","tennis","badminton","zombie")
 var registrations : MutableList<String>? = mutableListOf()
 
 
+
 val Start: State = state(Interaction) {
 
     onEntry {
+        furhat.param.interruptableOnAsk = true
+        furhat.param.interruptableOnSay = true
         furhat.ask("Hello, how can I help you?")
 //        TODO: make custom intents
     }
@@ -143,6 +146,9 @@ val UserDeniesInfo: State = state(Interaction) {
 
 val FurtherDetails: State = state(Interaction) {
     onEntry{
+        furhat.param.interruptableOnAsk = true
+// Make Furhat interruptable during all furhat.say(...)
+        furhat.param.interruptableOnSay = true
         furhat.ask("Now, could you give me your name, how long you intend to stay on the Enterprise, and whether you'd like to stay on our suite-class or citizen-class rooms?")
     }
     onResponse {

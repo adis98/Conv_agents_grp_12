@@ -52,6 +52,7 @@ class RoomTypes : EnumEntity() {
     }
 }
 
+
 class RoomClass(val typ : RoomTypes? = null):ComplexEnumEntity(){
     override fun getEnum(lang: Language): List<String> {
         return listOf("@typ rooms","@typ class rooms","@typ classrooms","@typ class")
