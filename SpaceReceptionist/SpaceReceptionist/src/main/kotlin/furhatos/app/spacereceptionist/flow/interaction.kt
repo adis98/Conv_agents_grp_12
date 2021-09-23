@@ -23,11 +23,12 @@ var registrations : MutableList<String>? = mutableListOf()
 val Start: State = state(Interaction) {
 
     onEntry {
-        furhat.param.interruptableOnAsk = true
-        furhat.param.interruptableOnSay = true
+        //furhat.param.interruptableOnAsk = true
+        //furhat.param.interruptableOnSay = true
         furhat.ask("Hello, how can I help you?")
 //        TODO: make custom intents
     }
+    onReentry { furhat.ask("How can I help you?") }
 
     onResponse<Yes> {
         furhat.say("I like humans.")
@@ -57,19 +58,24 @@ val RobotIntro = state(Interaction) {
 
         furhat.ask("Would you like to check in?")
     }
+    onReentry { furhat.ask("Would you like to check in?") }
 
     onResponse<Yes> { goto(CheckInIntro) }
 
     onResponse<CheckIn> { goto(CheckInIntro) }
+    onResponse<No>{
+        furhat.say("Goodbye then.")
+    }
 }
 
 val CheckInIntro: State = state(Start) {
     onEntry {
         furhat.ask("""
-                    Great! As the travel is longer than two days on our journey to Vulkan,
+                    As the travel is longer than two days on our journey to Vulkan,
                     regulation requires we ask a few questions. Is that okay with you?
                     """.trimIndent())
     }
+    onReentry { furhat.ask("Due to regulations, I need to ask a few questions. Is that fine?") }
 
     onResponse<Yes> {
         goto(HowManyGuests)
@@ -88,8 +94,9 @@ val HowManyGuests: State = state(Interaction) {
                 """.trimIndent()
         )
     }
+    onReentry { furhat.ask("How many would you like to check in?") }
     onResponse<Number>{
-        furhat.say("Cool! Let me run some checks on this.")
+        furhat.say("Cool! Let me run some checks on this....")
         requestNum = it.intent.value
         if(availablePlaces >= requestNum!!){
             goto(RandomQuestion1)
@@ -104,6 +111,7 @@ val RandomQuestion1: State = state(Interaction){
     onEntry{
         furhat.ask("Great. By the way, would you like to know about the available amenities in your rooms?")
     }
+    onReentry { furhat.ask("Would you like to know the available amenities in your rooms?") }
     onResponse<Yes>{
         furhat.say("You're provided a bed, a table, a chair, and a replicator, which allows you to create any dish you want in the comfort of your room")
         goto(FurtherDetails)
@@ -146,9 +154,9 @@ val UserDeniesInfo: State = state(Interaction) {
 
 val FurtherDetails: State = state(Interaction) {
     onEntry{
-        furhat.param.interruptableOnAsk = true
+        //furhat.param.interruptableOnAsk = true
 // Make Furhat interruptable during all furhat.say(...)
-        furhat.param.interruptableOnSay = true
+        //furhat.param.interruptableOnSay = true
         furhat.ask("Now, could you give me your name, how long you intend to stay on the Enterprise, and whether you'd like to stay on our suite-class or citizen-class rooms?")
     }
     onResponse {
@@ -160,9 +168,9 @@ val FurtherDetails: State = state(Interaction) {
 
 }
 
-val FurtherDetails1: State = state(Interaction) {
+val FurtherDetails1: State = state(Interaction) {//gets the user's name if not received before
     onEntry{
-        furhat.ask("Sorry, I couldn't get your name. Could you say it again")
+        furhat.ask("Sorry, I couldn't get your name. Could you say it again?")
     }
     onResponse<PersonName>{
         customerName = it.findFirst(PersonName())
@@ -171,9 +179,9 @@ val FurtherDetails1: State = state(Interaction) {
 
 }
 
-val FurtherDetails2: State = state(Interaction) {
+val FurtherDetails2: State = state(Interaction) {//gets the stay duration if not received before
     onEntry{
-        furhat.ask("Sorry, I couldn't get the stay duration. Could you say it again")
+        furhat.ask("Sorry, I couldn't get the stay duration. Could you say it again?")
     }
     onResponse<Duration>{
         stayDuration = it.findFirst(Duration())
@@ -181,7 +189,7 @@ val FurtherDetails2: State = state(Interaction) {
     }
 }
 
-val FurtherDetails3: State = state(Interaction) {
+val FurtherDetails3: State = state(Interaction) {//gets the room class type if not received before
     onEntry{
         furhat.ask("Could you tell me whether you prefer suite-class or citizen class?")
     }
@@ -193,7 +201,7 @@ val FurtherDetails3: State = state(Interaction) {
 }
 
 
-val CheckDetails: State = state(Interaction) {
+val CheckDetails: State = state(Interaction) {//checks the booking details
     onEntry{
         if (customerName == null){
             goto(FurtherDetails1)
@@ -213,13 +221,13 @@ val CheckDetails: State = state(Interaction) {
         furhat.say("So your order details are:"+ customerName!!.text+", "+"room for "+ requestNum+", "+ stayDuration!!.days.toString()+" days, "+ corrected_class +" class, right?")
         furhat.say("Let me check whether this is feasible... ")
         if(roomType!!.toString() == "citizen"){
-            if(citizenRoomCount < requestNum!!){
+            if(citizenRoomCount < requestNum!!){ //checks that the number of people can fit in the number of citizen class rooms
                 goto(StarshipOverloaded)
             }
             goto(SpecificWishes)
         }
         else{
-            if(suiteRoomCount*2 < requestNum!!){
+            if(suiteRoomCount*2 < requestNum!!){ //each suite-class room can accommodate 2 people
                 goto(StarshipOverloaded)
             }
             goto(SpecificWishes)
@@ -230,10 +238,10 @@ val CheckDetails: State = state(Interaction) {
 val StarshipOverloaded: State = state(Interaction){
     onEntry {
         if(corrected_class == "suite"){
-            furhat.say("Unfortunately we do not have enough rooms of this kind for your request. We only have ${suiteRoomCount} rooms, each with a double bed")
+            furhat.say("Unfortunately we do not have enough rooms of this kind for your request. We only have ${suiteRoomCount} suite rooms, each with a double bed. So we can only accomodate ${suiteRoomCount*2} people at most")
         }
         else{
-            furhat.say("Unfortunately we do not have enough rooms of this kind for your request. We only have ${citizenRoomCount} rooms, each with a single bed")
+            furhat.say("Unfortunately we do not have enough rooms of this kind for your request. We only have ${citizenRoomCount}  citizen rooms, each with a single bed. So we can only accomodate ${citizenRoomCount} people at most")
         }
         furhat.ask("Would you like to change the number of people you want to check-in?")
     }
@@ -271,7 +279,10 @@ val NumberOfPeopleChange: State = state(Interaction){
 
 val SpecificWishes: State = state(Interaction){
     onEntry {
-        furhat.ask("Amazing. The data has been entered to your name. Now before I mention the activities on-board, do you have any wishes during your stay?")
+        furhat.ask("The data has been entered to your name. Now before I mention the activities on-board, do you have any wishes during your stay?")
+    }
+    onResponse<No>{
+        goto(NoWishes)
     }
     onResponse<Wish>{
         var temp = it.intent.wish
@@ -280,18 +291,19 @@ val SpecificWishes: State = state(Interaction){
         }
         goto(WishesLoop)
     }
-    onResponse<No>{
-        goto(NoWishes)
-    }
+
 }
 
 val Check_in_cancel: State = state(Interaction){
     onEntry{
         furhat.ask("Alright. Please let me know if you'd like to start over. Otherwise, I wish you a good day")
     }
+    onResponse<StartOver>{
+        goto(Start)
+    }
 }
 
-val WishesLoop: State = state(Interaction){
+val WishesLoop: State = state(Interaction){ //user mentions wishes
     onEntry{
 //        furhat.ask("What other wishes?")
         random(
@@ -338,7 +350,11 @@ val StarshipActivities: State = state(Interaction){
         furhat.ask("On Enterprise, we offer Skiing, Tennis, Badminton, and Zombie Survival. Which ones would you like to sign up for today?")
     }
     onReentry {
-        furhat.ask("What other activies do you want to sign up for?")
+        random(
+            {furhat.ask("Any other activities you want to sign up for?")},
+            {furhat.ask("Any other activities?")},
+            {furhat.ask("Anything else?")}
+        )
     }
 
     onResponse<No>{
@@ -357,7 +373,11 @@ val StarshipActivities: State = state(Interaction){
             for (temp in registrations!!){
                 answer = answer + ", " + temp
             }
-            furhat.say("You've registered for"+answer)
+            if(answer != "")
+                furhat.say("You've registered for"+answer)
+            else{
+                furhat.say("You've not signed up for anything")
+            }
         }
         reentry()
     }
