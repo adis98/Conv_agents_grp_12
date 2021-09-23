@@ -1,0 +1,50 @@
+08:43:05 [Skill] INFO  Skill:139 - Connecting to Furhat server on 192.168.0.131:1932
+08:43:05 [SpacereceptionistSkill] INFO  SpacereceptionistSkill:166 - Starting skill
+08:49:47 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:49:47 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:49:47 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:49:47 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:49:47 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:49:47 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:54:49 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:54:49 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:54:49 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:54:49 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:54:49 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:54:49 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:59:51 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:59:51 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:59:51 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:59:51 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+08:59:51 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+08:59:51 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:04:53 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:04:53 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:04:53 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:04:53 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:04:53 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:04:53 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:09:55 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:09:55 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:09:55 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:09:55 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:09:55 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:09:55 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:14:58 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:14:58 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:14:58 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:14:58 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:14:58 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:14:58 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:20:00 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:20:00 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:20:00 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:20:00 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:20:00 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:20:00 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:25:02 [Broker Client] WARN  Event:192 - Could not set field masks with type class java.util.ArrayList on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:25:02 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:25:02 [Broker Client] WARN  Event:192 - Could not set field character with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:25:02 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
+09:25:02 [Broker Client] WARN  Event:192 - Could not set field mask with type class java.lang.String on builder class furhatos.event.responses.ResponseFace$Builder : null
+09:25:02 [Broker Client] WARN  Event:193 - Verify that the SDK/Robot and Skill have the same version of furhat-commons
