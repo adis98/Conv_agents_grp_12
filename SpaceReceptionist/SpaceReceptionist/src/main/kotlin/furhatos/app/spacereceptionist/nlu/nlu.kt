@@ -15,7 +15,7 @@ class CheckIn : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf("I would like to check in", "I would like to check-in",
                 "check-in",
-                "checkin", "check in"
+                "checkin", "check in", "get a room", "book a room"
         )
     }
 }
@@ -23,7 +23,7 @@ class CheckIn : Intent() {
 // Wtf is going on intent
 class Confused : Intent() {
     override fun getExamples(lang: Language): List<String> {
-        return listOf("Who are you?", "Where am I?", "What?", "What is this?", "What the hell is this?")
+        return listOf("Who are you?", "Where am I?", "What?", "What is this?", "What the hell is this?", "What can I do?")
     }
 }
 
