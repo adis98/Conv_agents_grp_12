@@ -6,6 +6,8 @@ import furhatos.app.spacereceptionist.nlu.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.Number
 import furhatos.flow.kotlin.onResponse as onResponse
+import java.net.HttpURLConnection
+import java.net.URL
 
 val availablePlaces = 40
 var requestNum : Int? = null
@@ -24,11 +26,18 @@ var registrations : MutableList<String>? = mutableListOf()
 val Start: State = state(Interaction) {
 
     onEntry {
+        //furhat.cameraFeed.enable()
+
+        //print(furhat.cameraFeed.isOpen())
         //furhat.param.interruptableOnAsk = true
         //furhat.param.interruptableOnSay = true
-        furhat.ask("Hello, how can I help you?")
+        //furhat.ask("Hello, how can I help you?")
+        furhat.ask("Welcome! Before we begin, would you like to try out the emotion recognizer?")
+
+        //furhat.ask("Hello, how can I help you?")
 //        TODO: make custom intents
     }
+    onResponse<Yes>{goto(detectEmotions)}
     onReentry { furhat.ask("How can I help you?") }
 
     onResponse<CheckIn> {
@@ -41,6 +50,34 @@ val Start: State = state(Interaction) {
 
     onResponse<Greeting> {
         goto(thisState)
+    }
+}
+
+val detectEmotions = state(Interaction){
+    onEntry{
+        furhat.ask("Shall I detect you emotion now?")
+    }
+    onResponse<Yes>{
+        val url = URL("http://localhost:9999/detect")
+        val regex = "<p>\\w{2}".toRegex()
+        with(url.openConnection() as HttpURLConnection) {
+            requestMethod = "GET"  // optional default is GET
+            //print("\nSent 'GET' request to URL : $url; Response Code : $responseCode")
+
+            inputStream.bufferedReader().use {
+                it.lines().forEach { line ->
+                    val match = regex.find("anger")
+                    if (match != null) {
+                        furhat.say(match.value)
+                    }
+
+                }
+            }
+        }
+        reentry()
+    }
+    onResponse<No>{
+        goto(Start)
     }
 }
 
