@@ -33,11 +33,16 @@ val Start: State = state(Interaction) {
         //furhat.param.interruptableOnSay = true
         //furhat.ask("Hello, how can I help you?")
         furhat.ask("Welcome! Before we begin, would you like to try out the emotion recognizer?")
-
         //furhat.ask("Hello, how can I help you?")
 //        TODO: make custom intents
     }
-    onResponse<Yes>{goto(detectEmotions)}
+    onResponse<Yes>{
+        call(detectEmotions)
+        furhat.ask("Well, that was an interesting experiment! Back to business now. How can I help you?")
+    }
+    onResponse<No>{
+        reentry()
+    }
     onReentry { furhat.ask("How can I help you?") }
 
     onResponse<CheckIn> {
@@ -55,15 +60,15 @@ val Start: State = state(Interaction) {
 
 val detectEmotions = state(Interaction){
     onEntry{
-        furhat.ask("Shall I detect you emotion now?")
+        furhat.ask("Shall I detect your emotion now?")
     }
     onResponse<Yes>{
         val url = URL("http://localhost:9999/detect")
-        val regex = "<p>\\w{2}".toRegex()
         with(url.openConnection() as HttpURLConnection) {
             requestMethod = "GET"  // optional default is GET
             //print("\nSent 'GET' request to URL : $url; Response Code : $responseCode")
-
+            furhat.say("$responseMessage")
+            /*
             inputStream.bufferedReader().use {
                 it.lines().forEach { line ->
                     val match = regex.find("anger")
@@ -72,12 +77,12 @@ val detectEmotions = state(Interaction){
                     }
 
                 }
-            }
+            }*/
         }
         reentry()
     }
     onResponse<No>{
-        goto(Start)
+        terminate()
     }
 }
 
