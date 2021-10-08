@@ -5,9 +5,12 @@ import furhatos.flow.kotlin.*
 import furhatos.app.spacereceptionist.nlu.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.Number
+import furhatos.records.Location
+import kotlinx.coroutines.runBlocking
 import furhatos.flow.kotlin.onResponse as onResponse
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.concurrent.thread
 
 val availablePlaces = 40
 var requestNum : Int? = null
@@ -22,8 +25,117 @@ var activities  = arrayOf<String>("skiing","tennis","badminton","zombie")
 var registrations : MutableList<String>? = mutableListOf()
 
 
+val beginTalking : State = state(Interaction){
+    onEntry{
+        furhat.glance(Location.RIGHT,duration=1000)
+        delay(2000)
+        reentry()
+    }
+    onEvent("stoppertalking"){
+        print("event called")
+        terminate()
+    }
+    onEvent("dontlook"){
+        furhat.glance(Location.LEFT,duration=2000)
+    }
+
+}
+
+val gazeTester: State = state(Interaction){
+
+    onEntry{
+        furhat.say("You are now in gaze test 1. I will wait for a few seconds before demonstrating")
+        delay(3000)
+        parallel() {
+            call(beginTalking)
+        }
+        furhat.say("Noticed that I look away when I start talking? Interesting, right?")
+        send("stoppertalking")
+        furhat.listen()
+    }
+    onResponse<Yes>{
+        furhat.say("You probably also saw that I stare at you when I expect a response from you. Lets now move on to test 2")
+        goto(gazeTester2)
+
+    }
+    onResponse{
+        furhat.say("Aww, too bad. Lets move on to test 2 then")
+        goto(gazeTester2)
+    }
+}
+
+val gazeTester4: State = state(Interaction){
+
+    onEntry{
+        furhat.say("I hope you noticed that I pay close attention to you when you're speaking! Lets go to test 4")
+        furhat.say("You are now in gaze test 4. I will wait for a few seconds before demonstrating")
+        delay(3000)
+        parallel() {
+            call(beginTalking)
+        }
+        furhat.say("This test demonstrates interrupts. Please interrupt me anytime once I start speaking after the delay")
+        delay(3000)
+        furhat.say("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah")
+        furhat.listen()
+    }
+    onResponse{
+        send("stoppertalking")
+        goto(conclusionGazeTest)
+    }
+    onNoResponse {
+        furhat.say("Come on! Please participate. Lets try this again")
+        reentry()
+    }
+
+}
+
+val conclusionGazeTest: State = state(Interaction){
+    onEntry{
+        furhat.say("Thank you for participating in this experiment. Lets go back to the reception")
+        goto(Start)
+    }
+
+}
+
+
+
+val gazeTester3: State = state(Interaction){
+
+    onEntry{
+        furhat.say("You are now in gaze test 3. I will wait for a few seconds before demonstrating")
+        delay(3000)
+        parallel() {
+            call(beginTalking)
+        }
+        furhat.say("I will say a sentence now and wait for you to start speaking. Observe my gaze when you start speaking")
+        furhat.say("Start speaking now!")
+        send("stoppertalking")
+        furhat.listen()
+    }
+    onResponse{
+        goto(gazeTester4)
+    }
+}
+
+val gazeTester2: State = state(Interaction){
+
+    onEntry{
+        furhat.say("You are now in gaze test 2. I will wait for a few seconds before demonstrating")
+        delay(3000)
+        parallel() {
+            call(beginTalking)
+        }
+        furhat.say("Today is a beautiful day, but I wonder if this will continue... let me check")
+        furhat.say("Nope. The weather report says that it's gonna snow for the next 5 days.")
+        send("stoppertalking")
+        delay(3000)
+        furhat.say("Now you saw that I continue glancing away when I intend to continue speaking. Lets move to the next test")
+        goto(gazeTester3)
+    }
+}
 
 val Start: State = state(Interaction) {
+
 
     onEntry {
         //furhat.cameraFeed.enable()
@@ -32,13 +144,25 @@ val Start: State = state(Interaction) {
         //furhat.param.interruptableOnAsk = true
         //furhat.param.interruptableOnSay = true
         //furhat.ask("Hello, how can I help you?")
-        furhat.ask("Welcome! Before we begin, would you like to try out the emotion recognizer?")
+
+        furhat.say("Welcome! Before we begin, would you like to try out the emotion recognizer or gaze detector?")
+        furhat.listen()
+        //send("stoppertalking")
+        //furhat.listen() //expecting response so look at user
         //furhat.ask("Hello, how can I help you?")
 //        TODO: make custom intents
     }
+    onResponse("gaze detector","gaze","gays detector","gas detector"){
+        goto(gazeTester)
+    }
     onResponse<Yes>{
         call(detectEmotions)
-        furhat.ask("Well, that was an interesting experiment! Back to business now. How can I help you?")
+        parallel() {
+            call(beginTalking)
+        }
+        furhat.say("Well, that was an interesting experiment! Back to business now. How can I help you?")
+        send("stoppertalking")
+        furhat.listen()
     }
     onResponse<No>{
         reentry()
@@ -60,6 +184,9 @@ val Start: State = state(Interaction) {
 
 val detectEmotions = state(Interaction){
     onEntry{
+        parallel() {
+            call(beginTalking)
+        }
         furhat.ask("Shall I detect your emotion now?")
     }
     onResponse<Yes>{
@@ -88,6 +215,9 @@ val detectEmotions = state(Interaction){
 
 val RobotIntro = state(Interaction) {
     onEntry {
+        parallel() {
+            call(beginTalking)
+        }
         furhat.say {
             +("""
             Welcome to Starship
@@ -101,16 +231,25 @@ val RobotIntro = state(Interaction) {
                 +Gestures.Smile(duration = 6.0)
                 +"My name is Data and I am your check-in assistant for today."
         }
-
-        furhat.ask("Would you like to check in?")
+        furhat.say("Would you like to check in?")
+        send("stoppertalking")
+        furhat.listen()
     }
-    onReentry { furhat.ask("Would you like to check in?") }
+    onReentry {
+        parallel() {
+            call(beginTalking)
+        }
+        furhat.ask("Would you like to check in?") }
 
     onResponse<Yes> { goto(CheckInIntro) }
 
     onResponse<CheckIn> { goto(CheckInIntro) }
     onResponse<No>{
-        furhat.say("Goodbye then.")
+        parallel() {
+            call(beginTalking)
+        }
+        furhat.say("Goodbye then")
+        send("donttalk")
     }
 }
 
@@ -144,7 +283,11 @@ val HowManyGuests: State = state(Interaction) {
     onReentry { furhat.ask("How many would you like to check in?") }
     onResponse<Number>{
         furhat.gesture(Gestures.Smile(duration=1.5))
-        furhat.say("Cool! Let me run some checks on this....")
+        parallel(){
+            goto(beginTalking)
+        }
+        furhat.say("Cool! Let me run some checks on this....checking...checking....checking...")
+        send("dontlook")
         requestNum = it.intent.value
         if(availablePlaces >= requestNum!!){
             goto(RandomQuestion1)
